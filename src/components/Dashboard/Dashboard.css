@@ -1,0 +1,147 @@
+body {
+  margin: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f5f6fa;
+  color: #333;
+}
+
+.dashboard-container{
+  display: grid;
+  grid-template-columns: 220px 1fr 300px;
+  gap: 20px;
+  padding: 20px;
+}
+
+.sidebar{
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 12px;
+  -webkit-border-radius: 12px;
+  -moz-border-radius: 12px;
+  -ms-border-radius: 12px;
+  -o-border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+
+}
+
+.logo{
+  font-size: 24px;
+  font-size: bold;
+  color: #6a0dad;
+  margin-bottom: 30px;
+}
+
+.nav-links{
+  margin: 12px 0;
+  cursor: pointer;
+  color: #555;
+}
+
+.main-content{
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.card{
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  -webkit-border-radius: 12px;
+  -moz-border-radius: 12px;
+  -ms-border-radius: 12px;
+  -o-border-radius: 12px;
+}
+
+
+.header-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+}
+
+.left-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px; /* Space between h2, p, and button */
+}
+
+.left-content h2 {
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+.left-content p {
+  margin: 0;
+  color: #555;
+}
+
+.left-content .btn {
+  padding: 8px 16px;
+  background-color: #6a0dad;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.time-mgment {
+  width: 280px;
+  height: auto;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-top: 0;
+}
+
+
+
+
+.btn{
+  background-color: #6a0dad;
+  color: white;
+  padding: 10px 18px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.task-cards {
+  display: flex;
+  gap: 15px;
+}
+
+
+
+
+
+
+
+/* Custom styles for the calendar */
+.react-calendar {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr); /* 1 column */
+  grid-template-rows: repeat(1, 1fr); /* 1 row */
+  width: 100%;
+  height: 100%;
+}
+
+.react-calendar__tile {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100px; /* Adjust as needed */
+  width: 100px; /* Adjust as needed */
+}
+
+.react-calendar__month-view {
+  display: flex;
+  justify-content: center;
+}
+
+.react-calendar__tile:focus {
+  background-color: #6a0dad; /* Color on focus */
+  color: white;
+}
