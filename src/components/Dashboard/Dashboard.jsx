@@ -45,7 +45,8 @@ const Dashboard = () => {
       <aside className="sidebar">
         <h1 className="logo">Taskify</h1>
           <nav className="nav-links">
-            <a href="">
+           <div className="top">
+           <a href="">
               <img src="/src/assets/dashboard.png" alt="" /> Dashboard
             </a>
             <a href="">
@@ -57,6 +58,11 @@ const Dashboard = () => {
             <a href="">
               <img src="/src/assets/reports.png" alt="" /> Reports
             </a>
+           </div>
+           <div className="bottom">
+            <a href=""> <img src="/src/assets/support.png" alt="" />Support</a>
+            <a href=""> <img src="/src/assets/settings.png" alt="" />Settings</a>
+           </div>
           </nav>
       
       </aside>

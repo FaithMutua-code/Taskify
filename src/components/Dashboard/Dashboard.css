@@ -32,10 +32,37 @@ body {
 }
 
 .nav-links{
-  margin: 12px 0;
+  display: flex;
+  flex-direction:column;
+  justify-content: space-between;
   cursor: pointer;
   color: #555;
+  font-weight: 600;
+ 
 }
+
+.nav-links a{
+  text-decoration: none;
+  font-size: 1.2rem;
+  display: flex;
+  flex-direction:row;
+  margin-bottom:20px ;
+
+}
+.nav-links img{
+  width: 30px;
+  height: 30px;
+}
+
+.nav-links .top{
+  position: relative;
+}
+.nav-links .bottom{
+  position: absolute;
+  bottom: 50px;
+}
+
+
 
 .main-content{
   display: flex;
@@ -111,6 +138,36 @@ body {
 .task-cards {
   display: flex;
   gap: 15px;
+}
+
+.task-cards .card{
+  flex: 1;
+}
+
+.chart-card{
+  height: 280px;
+}
+
+.right-sidebar{
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.avatar{
+  background-color: #6a0dad;
+  color: white;
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  -ms-border-radius: 50%;
+  -o-border-radius: 50%;
 }
 
 
