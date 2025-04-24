@@ -1,7 +1,7 @@
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts";
 import { useState } from 'react';
 import './Dashboard.css';
-import Calendar from 'react-calendar';  // Correct import for Calendar component
+import Calendar from 'react-calendar';
 
 const data = [
   { day: "Mon", timeSpent: 4 },
@@ -11,6 +11,12 @@ const data = [
   { day: "Fri", timeSpent: 5 },
   { day: "Sat", timeSpent: 4 },
   { day: "Sun", timeSpent: 6 },
+];
+
+const taskdata = [
+  { title: "Web development", progress: 90, daysLeft: 3 },
+  { title: "Mobile App", progress: 30, daysLeft: 25 },
+  { title: "Animation", progress: 75, daysLeft: 7 }
 ];
 
 const Dashboard = () => {
@@ -26,17 +32,14 @@ const Dashboard = () => {
     console.log('Selected date:', formattedDate);
   };
 
-  // Handle form submission to add schedule item
   const handleAddSchedule = (e) => {
     e.preventDefault();
-
-    // Add the new schedule item to the list
     if (startTime && endTime && task) {
-      const newScheduleItem = { startTime, endTime, task, id: Math.random() }; // Random ID for each activity
-      setSchedule((prevSchedule) => [...prevSchedule, newScheduleItem]); // Update schedule state
-      setStartTime(''); // Reset start time input
-      setEndTime(''); // Reset end time input
-      setTask(''); // Reset task input
+      const newScheduleItem = { startTime, endTime, task, id: Math.random() };
+      setSchedule((prev) => [...prev, newScheduleItem]);
+      setStartTime('');
+      setEndTime('');
+      setTask('');
     }
   };
 
@@ -44,27 +47,18 @@ const Dashboard = () => {
     <div className="dashboard-container">
       <aside className="sidebar">
         <h1 className="logo">Taskify</h1>
-          <nav className="nav-links">
-           <div className="top">
-           <a href="">
-              <img src="/src/assets/dashboard.png" alt="" /> Dashboard
-            </a>
-            <a href="">
-              <img src="/src/assets/track.png" alt="" /> Track
-            </a>
-            <a href="">
-              <img src="/src/assets/projects.png" alt="" /> Projects
-            </a>
-            <a href="">
-              <img src="/src/assets/reports.png" alt="" /> Reports
-            </a>
-           </div>
-           <div className="bottom">
-            <a href=""> <img src="/src/assets/support.png" alt="" />Support</a>
-            <a href=""> <img src="/src/assets/settings.png" alt="" />Settings</a>
-           </div>
-          </nav>
-      
+        <nav className="nav-links">
+          <div className="top">
+            <a href=""><img src="/src/assets/dashboard.png" alt="" /> Dashboard</a>
+            <a href=""><img src="/src/assets/track.png" alt="" /> Track</a>
+            <a href=""><img src="/src/assets/projects.png" alt="" /> Projects</a>
+            <a href=""><img src="/src/assets/reports.png" alt="" /> Reports</a>
+          </div>
+          <div className="bottom">
+            <a href=""><img src="/src/assets/support.png" alt="" /> Support</a>
+            <a href=""><img src="/src/assets/settings.png" alt="" /> Settings</a>
+          </div>
+        </nav>
       </aside>
 
       <main className="main-content">
@@ -74,45 +68,39 @@ const Dashboard = () => {
             <h3>Let's finish your task today</h3>
           </div>
           <div className="notification">
-           <img src="/src/assets/notification.png" alt="" />
+            <img src="/src/assets/notification.png" alt="" />
           </div>
         </div>
-      <div className="card header-card">
-  <div className="left-content">
-    <h2>Today's Task</h2>
-    <p>Check your daily tasks and schedules</p>
-    <button className="btn">Today’s Schedule</button>
-  </div>
-  <img className="time-mgment" src="/src/assets/imag1.jpg" alt="Task" />
-</div>
 
+        <div className="card header-card">
+          <div className="left-content">
+            <h2>Today's Task</h2>
+            <p>Check your daily tasks and schedules</p>
+            <button className="btn">Today’s Schedule</button>
+          </div>
+          <img className="time-mgment" src="/src/assets/imag1.jpg" alt="Task" />
+        </div>
 
         <div className="task-cards">
-          <div className="card">
-            <h3>Web Dashboard</h3>
-            <p className="progress_bar">Progress: 90%</p>
-            <p className="days_left">3 days left</p>
-          </div>
-          <div className="card">
-            <h3>Mobile App</h3>
-            <p className="progress_bar">Progress: 30%</p>
-            <p className="days_left">25 days left</p>
-          </div>
-          <div className="card">
-            <h3>Animation</h3>
-            <p className="progress_bar">Progress: 75%</p>
-            <p className="days_left">7 days left</p>
-          </div>
-          <div className="card">
-            <h3>Mobile App</h3>
-            <p className="progress_bar">Progress: 30%</p>
-            <p className="days_left">25 days left</p>
-          </div>
-          <div className="card">
-            <h3>Animation</h3>
-            <p className="progress_bar">Progress: 75%</p>
-            <p className="days_left">7 days left</p>
-          </div>
+          {taskdata.map((task, index) => (
+            <div className="card" key={index}>
+              <h3>{task.title}</h3>
+              <div className="progress-container">
+                <div
+                  className="progress-bar"
+                  style={{
+                    width: `${task.progress}%`,
+                    backgroundColor:
+                      task.progress > 70 ? '#c627d4' :
+                      task.progress > 40 ? '#f17de0' :
+                      '#f44336'
+                  }}
+                ></div>
+              </div>
+              <p className="progress-text">Progress: {task.progress}%</p>
+              <p className="days-left">Days Left: {task.daysLeft}</p>
+            </div>
+          ))}
         </div>
 
         <div className="card chart-card">
@@ -127,30 +115,31 @@ const Dashboard = () => {
             </BarChart>
           </ResponsiveContainer>
         </div>
+        <div className="card assignments">
+          
+        </div>
       </main>
 
       <aside className="right-sidebar">
         <div className="card profile-card">
           <div className="profile">
-              <div className="avatar"><img src="/src/assets/avator.jpg" alt="" /></div>
-             <div className="name_role">
-             <h3>Kim Namjoon</h3>
-             <p>UI/UX Designer</p>
-             </div>
+            <div className="avatar"><img src="/src/assets/avator.jpg" alt="" /></div>
+            <div className="name_role">
+              <h3>Kim Namjoon</h3>
+              <p>UI/UX Designer</p>
+            </div>
           </div>
-         
+
           <div className="calendar">
             <h4>Mark the date</h4>
             <div className="calendar-wrapper">
-              <Calendar onChange={handleDateChange} value={date} view="month"   tileClassName="single-tile" />
+              <Calendar onChange={handleDateChange} value={date} view="month" tileClassName="single-tile" />
             </div>
           </div>
         </div>
 
         <div className="schedule">
           <h4>Schedule</h4>
-
-          {/* Schedule Form */}
           <form onSubmit={handleAddSchedule}>
             <input
               type="time"
@@ -176,16 +165,13 @@ const Dashboard = () => {
             <button type="submit">Add Task</button>
           </form>
 
-          {/* Displaying added schedule */}
           <div className="schedule-list">
             {schedule.length === 0 ? (
               <p>No activities scheduled yet.</p>
             ) : (
               schedule.map((item) => (
                 <div key={item.id} className="schedule-item">
-                  <p>
-                    {item.startTime} - {item.endTime} : {item.task}
-                  </p>
+                  <p>{item.startTime} - {item.endTime} : {item.task}</p>
                 </div>
               ))
             )}
