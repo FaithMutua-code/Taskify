@@ -38,6 +38,7 @@ body {
   cursor: pointer;
   color: #555;
   font-weight: 600;
+  padding-top: 30px;
  
 }
 
@@ -46,7 +47,7 @@ body {
   font-size: 1.2rem;
   display: flex;
   flex-direction:row;
-  margin-bottom:20px ;
+  margin-bottom:40px ;
 
 }
 .nav-links img{
@@ -67,8 +68,37 @@ body {
 .main-content{
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 10px;
 }
+.main-content .header{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0;
+
+}
+ .notification{
+  padding-right: 30px;
+ }
+.main-content .header img{
+  height: 30px;
+  width:30px ;
+  object-fit: contain;
+}
+.header .greet p{
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+.header .greet h3{
+  font-size: 1rem;
+  color: #6a0dad;
+  font-weight: 300;
+}
+.greet{
+  padding-left: 20px;
+}
+
+
 .card{
   background-color: #fff;
   padding: 20px;
@@ -153,22 +183,31 @@ body {
   flex-direction: column;
   gap: 20px;
 }
-
-.avatar{
-  background-color: #6a0dad;
-  color: white;
-  width: 45px;
-  height: 45px;
-  border-radius: 50%;
+.profile{
   display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: bold;
-  -webkit-border-radius: 50%;
-  -moz-border-radius: 50%;
-  -ms-border-radius: 50%;
-  -o-border-radius: 50%;
+  align-items:center;
+  flex-direction: row;
+ 
 }
+.avatar img{
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}
+.name_role{
+  
+  margin-left: 20px;
+}
+.name_role h3{
+  font-weight: 600;
+}
+.name_role p{
+  font-weight: 300;
+  text-align: center;
+  line-height: 0;
+
+}
+
 
 
 

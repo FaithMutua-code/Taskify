@@ -68,6 +68,15 @@ const Dashboard = () => {
       </aside>
 
       <main className="main-content">
+        <div className="header">
+          <div className="greet">
+            <p>Hi, <span>Kim Namjoon</span></p>
+            <h3>Let's finish your task today</h3>
+          </div>
+          <div className="notification">
+           <img src="/src/assets/notification.png" alt="" />
+          </div>
+        </div>
       <div className="card header-card">
   <div className="left-content">
     <h2>Today's Task</h2>
@@ -81,28 +90,28 @@ const Dashboard = () => {
         <div className="task-cards">
           <div className="card">
             <h3>Web Dashboard</h3>
-            <p>Progress: 90%</p>
-            <p className="small">3 days left</p>
+            <p className="progress_bar">Progress: 90%</p>
+            <p className="days_left">3 days left</p>
           </div>
           <div className="card">
             <h3>Mobile App</h3>
-            <p>Progress: 30%</p>
-            <p className="small">25 days left</p>
+            <p className="progress_bar">Progress: 30%</p>
+            <p className="days_left">25 days left</p>
           </div>
           <div className="card">
             <h3>Animation</h3>
-            <p>Progress: 75%</p>
-            <p className="small">7 days left</p>
+            <p className="progress_bar">Progress: 75%</p>
+            <p className="days_left">7 days left</p>
           </div>
           <div className="card">
             <h3>Mobile App</h3>
-            <p>Progress: 30%</p>
-            <p className="small">25 days left</p>
+            <p className="progress_bar">Progress: 30%</p>
+            <p className="days_left">25 days left</p>
           </div>
           <div className="card">
             <h3>Animation</h3>
-            <p>Progress: 75%</p>
-            <p className="small">7 days left</p>
+            <p className="progress_bar">Progress: 75%</p>
+            <p className="days_left">7 days left</p>
           </div>
         </div>
 
@@ -122,10 +131,14 @@ const Dashboard = () => {
 
       <aside className="right-sidebar">
         <div className="card profile-card">
-          <div className="profile"></div>
-          <h3>Kim Namjoon</h3>
-          <p className="small">UI/UX Designer</p>
-          <div className="avatar">KN</div>
+          <div className="profile">
+              <div className="avatar"><img src="/src/assets/avator.jpg" alt="" /></div>
+             <div className="name_role">
+             <h3>Kim Namjoon</h3>
+             <p>UI/UX Designer</p>
+             </div>
+          </div>
+         
           <div className="calendar">
             <h4>Mark the date</h4>
             <div className="calendar-wrapper">
