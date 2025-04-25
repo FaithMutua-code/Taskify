@@ -1,7 +1,9 @@
 body {
   margin: 0;
+  box-sizing: border-box;
+  padding: 0;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-color: #f5f6fa;
+  background-color: lavender;
   color: #333;
 }
 
@@ -13,6 +15,7 @@ body {
 }
 
 .sidebar{
+ 
   background-color: #fff;
   padding: 20px;
   border-radius: 12px;
@@ -21,6 +24,7 @@ body {
   -ms-border-radius: 12px;
   -o-border-radius: 12px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  
 
 }
 
@@ -36,7 +40,7 @@ body {
   flex-direction:column;
   justify-content: space-between;
   cursor: pointer;
-  color: #555;
+  color:  #6a0dad;;
   font-weight: 600;
   padding-top: 30px;
   height: 100%;
@@ -49,6 +53,7 @@ body {
   display: flex;
   flex-direction:row;
   margin-bottom:40px ;
+  color:  #6a0dad;;
 
 }
 .nav-links img{
@@ -60,8 +65,9 @@ body {
   position: relative;
 }
 .nav-links .bottom{
-  position: absolute;
-  bottom: 0;
+   margin-bottom: 90px;
+ 
+  
   
 }
 
@@ -231,12 +237,16 @@ body {
   display: flex;
   flex-direction: column;
   gap: 20px;
+ 
 }
 .profile{
   display: flex;
   align-items:center;
   flex-direction: row;
  
+}
+.profile-card{
+  background: rgba(161, 53, 234, 0.571);
 }
 .avatar img{
   width: 50px;
@@ -249,11 +259,15 @@ body {
 }
 .name_role h3{
   font-weight: 600;
+  margin: 0;
 }
 .name_role p{
   font-weight: 300;
-  text-align: center;
-  line-height: 0;
+  line-height: 1.2; /* Tighten the line spacing */
+  margin: 0;         /* Remove default margin */
+  padding: 0;        /* Just in case */
+  text-align: left;
+
 
 }
 
@@ -285,16 +299,6 @@ body {
   color: #777;
   margin-bottom: 8px;
 }
-
-
-
-
-
-
-
-
-
-
 
 .calendar-header {
   margin-top: 20px;
@@ -344,7 +348,15 @@ body {
 }
 
 .add-task-form button:hover {
-  background-color: #9c1c9b;
+  background-color: #ef27ef;
+}
+.caleder-schedule-card{
+  border-radius: 15px;
+ border: 1px solid #ddd;
+  padding: 20px;
+  background-color: white;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  
 }
 
 .calendar-wrapper {
@@ -391,16 +403,24 @@ body {
 
 /* Batchmates */
 .batchmates-card {
-  background: white;
+  background: rgba(161, 53, 234, 0.571);
   padding: 20px;
   border-radius: 15px;
+
 }
 
 .batchmate {
   display: flex;
   align-items: center;
-  gap: 10px;
+ 
   margin-bottom: 15px;
+  border: 1px solid transparent;
+  border-radius: 25px;
+  -webkit-border-radius: 25px;
+  -moz-border-radius: 25px;
+  -ms-border-radius: 25px;
+  -o-border-radius: 25px;
+  background-color: white;
 }
 
 .batchmate-avatar {
@@ -411,8 +431,12 @@ body {
 
 .batchmate p {
   font-weight: 600;
+  margin: 0; 
 }
 
 .batchmate small {
   color: #888;
+  margin: 0;         /* 👈 Remove space above role */
+  line-height: 1.2;  /* 👈 Tighten spacing */
+  display: block;
 }

@@ -176,7 +176,7 @@ const Dashboard = () => {
               <p>UI/UX Designer</p>
             </div>
           </div>
-
+          <div className="caleder-schedule-card">
           <div className="calendar-header">
             <h4>{date.toLocaleString('default', { month: 'long' })}</h4>
             <button 
@@ -233,6 +233,8 @@ const Dashboard = () => {
               ))
             )}
           </div>
+          </div>
+         
         </div>
 
         <div className="card batchmates-card">
