@@ -39,6 +39,7 @@ body {
   color: #555;
   font-weight: 600;
   padding-top: 30px;
+  height: 100%;
  
 }
 
@@ -60,7 +61,8 @@ body {
 }
 .nav-links .bottom{
   position: absolute;
-  bottom: 50px;
+  bottom: 0;
+  
 }
 
 
@@ -174,10 +176,57 @@ body {
   flex: 1;
 }
 
-.chart-card{
-  height: 280px;
+
+.chart-assignments-section {
+  display: flex;
+  gap: 20px;
+  margin-top: 20px;
+  flex-wrap: wrap;
+  align-items: stretch;
 }
 
+.chart-card, .assignments-card {
+  flex: 1;
+  min-width: 300px;
+}
+
+/* Assignments */
+.assignments-card {
+  flex: 1;
+  min-width: 300px;
+  display: flex;
+  flex-direction: column;
+  max-height: 500px; /* match this to the chart height */
+  overflow-y: auto;
+  padding-right: 10px;
+
+}
+
+.assignments-card h3 {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.assignment-list {
+  margin-top: 20px;
+}
+
+.assignment-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.assignment-item h4 {
+  font-size: 16px;
+}
+
+.assignment-item .score {
+  font-weight: bold;
+  color: #6a0dad;
+}
 .right-sidebar{
   display: flex;
   flex-direction: column;
@@ -244,29 +293,126 @@ body {
 
 
 
-/* Custom styles for the calendar */
-.react-calendar {
-  display: grid;
-  grid-template-columns: repeat(1, 1fr); /* 1 column */
-  grid-template-rows: repeat(1, 1fr); /* 1 row */
-  width: 100%;
-  height: 100%;
-}
 
-.react-calendar__tile {
+
+
+.calendar-header {
+  margin-top: 20px;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
-  height: 100px; /* Adjust as needed */
-  width: 100px; /* Adjust as needed */
 }
 
-.react-calendar__month-view {
-  display: flex;
-  justify-content: center;
-}
-
-.react-calendar__tile:focus {
-  background-color: #6a0dad; /* Color on focus */
+.add-task-btn {
+  background: #6a0dad;
   color: white;
+  border: none;
+  border-radius: 20px;
+  padding: 5px 10px;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.add-task-btn:hover {
+  background-color: #9c1c9b;
+}
+
+.calendar-wrapper {
+  margin-top: 20px;
+}
+
+.add-task-form {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+.add-task-form input {
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+.add-task-form button {
+  background-color: #c627d4;
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.add-task-form button:hover {
+  background-color: #9c1c9b;
+}
+
+.calendar-wrapper {
+  margin-top: 10px;
+}
+
+.react-calendar {
+  border: none;
+}
+
+.react-calendar__tile--now {
+  background: #f5e9fc;
+}
+
+.react-calendar__tile--active {
+  background: #6a0dad;
+  color: white;
+  border-radius: 50%;
+}
+
+.single-tile {
+  padding: 10px;
+}
+
+
+
+.schedule-list {
+  background: white;
+  padding: 20px;
+  border-radius: 15px;
+}
+
+.schedule-item {
+  margin-bottom: 15px;
+}
+
+.schedule-item p {
+  font-weight: 600;
+}
+
+.schedule-item small {
+  color: #999;
+}
+
+/* Batchmates */
+.batchmates-card {
+  background: white;
+  padding: 20px;
+  border-radius: 15px;
+}
+
+.batchmate {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.batchmate-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+.batchmate p {
+  font-weight: 600;
+}
+
+.batchmate small {
+  color: #888;
 }
