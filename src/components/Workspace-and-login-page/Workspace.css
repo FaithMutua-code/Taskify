@@ -1,17 +1,41 @@
 .workspace-container {
-  min-height: 100vh;
   display: flex;
-
+  flex-direction: column;
+  padding: 20px;
   justify-content: center;
+  align-items: center; /* Optional: center the layout horizontally */
+}
+
+.workspace-layout {
+  display: flex;
+  flex-direction: column; /* Single column layout since left side is gone */
   align-items: center;
-  background: #f0f6ff;
+  background-color: white;
+  padding: 40px;
+  border-radius: 16px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  gap: 40px;
+  max-width: 1000px;
+  width: 100%;
 }
-.avatar {
-  width: 100px;
-  height: 100px;
-  object-fit: cover;
-  border-radius: 50%;
+
+.workspace-right-side {
+  flex: 1;
+  padding: 2rem;
+  background-color: black;
+  display: flex;
+  justify-content: center;
 }
+
+.workspace-card {
+  min-width: 300px;
+  max-width: 400px;
+  background: white;
+  padding: 40px;
+  border-radius: 16px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
 .avatar-container {
   display: flex;
   align-items: center;
@@ -35,11 +59,12 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
+  border-radius: 50%;
 }
 
 .change-avatar label {
   cursor: pointer;
-  background-color: #007bff;
+  background-color: #880fc5;
   color: white;
   padding: 6px 12px;
   border-radius: 4px;
@@ -49,16 +74,6 @@
 
 .change-avatar label:hover {
   background-color: #0056b3;
-}
-
-
-
-.workspace-card {
-  background: white;
-  padding: 40px;
-  border-radius: 16px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  width: 400px;
 }
 
 .workspace-form {
@@ -76,11 +91,12 @@
   margin-bottom: 15px;
   border-radius: 8px;
   border: 1px solid #ddd;
+  width: 100%;
 }
 
 .workspace-button {
   padding: 12px;
-  background-color: #4285f4;
+  background-color: #8211b2;
   color: white;
   border: none;
   border-radius: 8px;
@@ -88,6 +104,7 @@
   cursor: pointer;
   margin-top: 10px;
   transition: background-color 0.3s;
+  width: 100%;
 }
 
 .workspace-button:hover {
@@ -105,9 +122,43 @@
   font-weight: 600;
   cursor: pointer;
 }
-.workspace-form {
-  overflow: visible;
+
+.role-container {
+  margin-top: 1rem;
 }
 
+.role-container input {
+  width: 100%;
+  padding: 0.75rem;
+  margin-top: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
 
+/* Responsive tweaks */
+@media (max-width: 768px) {
+  .workspace-container {
+    padding: 10px;
+  }
 
+  .workspace-layout {
+    padding: 20px;
+  }
+
+  .workspace-card {
+    width: 100%;
+    padding: 30px;
+  }
+
+  .workspace-button {
+    font-size: 14px;
+    padding: 10px;
+  }
+}
+
+@media (max-width: 576px) {
+  .workspace-card {
+    padding: 20px;
+    max-width: 100%;
+  }
+}
