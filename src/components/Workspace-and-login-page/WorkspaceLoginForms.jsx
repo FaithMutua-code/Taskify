@@ -1,17 +1,17 @@
 import React, { useState } from 'react';
-import './Workspace.css';
+import './Workspace.css';  // Make sure this file exists and contains your CSS
 import { motion } from 'framer-motion';
 
-const Workspace = () => {
+const WorkspaceLoginForms = () => {
   const [showLogin, setShowLogin] = useState(false);
-
   const [signupData, setSignupData] = useState({
     firstName: '',
     lastName: '',
-    name: '',
     email: '',
     password: '',
     confirmPassword: '',
+    avatar: '', // Avatar image data
+    role:'',
   });
 
   const [loginData, setLoginData] = useState({
@@ -31,12 +31,10 @@ const Workspace = () => {
 
   const handleSignupSubmit = (e) => {
     e.preventDefault();
-
     if (signupData.password !== signupData.confirmPassword) {
       alert("Passwords do not match!");
       return;
     }
-
     console.log('Signup Data:', signupData);
     // Add signup logic here
   };
@@ -45,6 +43,17 @@ const Workspace = () => {
     e.preventDefault();
     console.log('Login Data:', loginData);
     // Add login logic here
+  };
+
+  const handleAvatarChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setSignupData({ ...signupData, avatar: reader.result });
+      };
+      reader.readAsDataURL(file); // Convert image to data URL and store it in the state
+    }
   };
 
   return (
@@ -60,23 +69,48 @@ const Workspace = () => {
           <form onSubmit={handleSignupSubmit} className="workspace-form">
             <h2>Create Workspace</h2>
 
-            <input
-              type="text"
-              name="firstName"
-              placeholder="First Name"
-              value={signupData.firstName}
-              onChange={handleSignupChange}
-              required
-            />
+            <div className="avatar-container">
+              <div className="avatar-slot">
+                {signupData.avatar ? (
+                  <img
+                    src={signupData.avatar} // Display uploaded avatar if available
+                    alt="Avatar"
+                    className="avatar"
+                  />
+                ) : (
+                  <div className="avatar-placeholder">+</div> // Placeholder for empty state
+                )}
+              </div>
+              <span className="change-avatar">
+                <input
+                  type="file"
+                  accept="image/*"
+                  onChange={handleAvatarChange}
+                  style={{ display: 'none' }}
+                  id="avatarInput"
+                />
+                <label htmlFor="avatarInput">Change</label>
+              </span>
+            </div>
 
-            <input
-              type="text"
-              name="lastName"
-              placeholder="Last Name"
-              value={signupData.lastName}
-              onChange={handleSignupChange}
-              required
-            />
+            <div className="name-fields">
+              <input
+                type="text"
+                name="firstName"
+                placeholder="First Name"
+                value={signupData.firstName}
+                onChange={handleSignupChange}
+                required
+              />
+              <input
+                type="text"
+                name="lastName"
+                placeholder="Last Name"
+                value={signupData.lastName}
+                onChange={handleSignupChange}
+                required
+              />
+            </div>
 
             <input
               type="email"
@@ -86,6 +120,20 @@ const Workspace = () => {
               onChange={handleSignupChange}
               required
             />
+          
+            <label htmlFor="role">What best describes what you do?</label>
+            <input
+            type="text"
+            name="role"
+            placeholder="e.g. Developer"
+            value={signupData.role}
+            onChange={handleSignupChange}
+            required
+            
+          
+            />
+         
+
 
             <input
               type="password"
@@ -159,4 +207,4 @@ const Workspace = () => {
   );
 };
 
-export default Workspace;
+export default WorkspaceLoginForms;
