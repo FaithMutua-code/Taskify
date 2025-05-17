@@ -6,20 +6,36 @@
   <title>Workspace Login</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://unpkg.com/framer-motion@10.16.4/dist/framer-motion.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+
 </head>
 <body class="bg-gray-100">
   <div class="flex justify-center p-5">
-    <div class="flex flex-row items-center bg-white p-10 rounded-2xl shadow-md gap-10 max-w-6xl w-full flex-wrap">
-      <div class="flex-1 bg-blue-500 text-white flex flex-col items-center justify-center p-8 rounded-lg">
-        <p class="text-xl mt-4">Welcome to taskify</p>
-        <img src="/src/assets/login.png" alt="" class="w-full h-auto object-cover rounded-lg" />
+    <div class="flex flex-row items-center bg-white p-2 rounded-2xl shadow-lg  shadow-gray-500/50 gap-10 max-w-6xl w-full flex-wrap">
+      <div class="flex-1  text-white items-center justify-center p-8 rounded-lg">
+      
+        <img src="./assets/cute image for taski.png" alt="" class="w-full h-full object-contain rounded-lg max-h-[600px]" />
       </div>
       
       <div class="flex-1 p-8">
-        <div class="min-w-[300px] max-w-md bg-white p-10 rounded-2xl shadow-md">
+        <div class="min-w-[300px] max-w-md bg-white p-10 rounded-2xl shadow-lg shadow-purple-500/30">
           <div id="signup-form">
             <form id="signupForm" class="flex flex-col">
-              <h2 class="mb-5 text-center text-2xl">Create Workspace</h2>
+              <div class="flex items-center justify-center gap-3 mb-5">
+                <!-- SVG Icon -->
+                <svg width="32" height="32" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <rect width="64" height="64" rx="12" fill="#E9D5FF"/>
+                  <path d="M20 20H44V44H20V20Z" fill="white" stroke="#9333EA" stroke-width="2" stroke-linejoin="round"/>
+                  <path d="M24 24H40V28H24V24Z" fill="#C084FC"/>
+                  <path d="M24 32H40V36H24V32Z" fill="#C084FC"/>
+                  <circle cx="32" cy="48" r="2" fill="#9333EA"/>
+                </svg>
+              
+                <!-- Heading -->
+                <h2 class="text-2xl font-semibold text-gray-800" style="font-family: 'Pacifico', cursive;">Create Workspace</h2>
+
+              </div>
+              
 
               <div class="flex items-center gap-2.5 mb-5">
                 <div class="w-24 h-24 rounded-full overflow-hidden border-2 border-gray-300 flex justify-center items-center bg-gray-100">
@@ -117,7 +133,7 @@
 
           <div id="login-form" class="hidden">
             <form id="loginForm" class="flex flex-col">
-              <h2 class="mb-5 text-center text-2xl">Login</h2>
+              <h2 class="mb-5 text-center text-2xl  " style="font-family: 'Pacifico', cursive;">Login</h2>
 
               <input
                 type="email"
