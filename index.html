@@ -1,13 +1,241 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite + React</title>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
-  </body>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Workspace Login</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/framer-motion@10.16.4/dist/framer-motion.js"></script>
+</head>
+<body class="bg-gray-100">
+  <div class="flex justify-center p-5">
+    <div class="flex flex-row items-center bg-white p-10 rounded-2xl shadow-md gap-10 max-w-6xl w-full flex-wrap">
+      <div class="flex-1 bg-blue-500 text-white flex flex-col items-center justify-center p-8 rounded-lg">
+        <p class="text-xl mt-4">Welcome to taskify</p>
+        <img src="/src/assets/login.png" alt="" class="w-full h-auto object-cover rounded-lg" />
+      </div>
+      
+      <div class="flex-1 p-8">
+        <div class="min-w-[300px] max-w-md bg-white p-10 rounded-2xl shadow-md">
+          <div id="signup-form">
+            <form id="signupForm" class="flex flex-col">
+              <h2 class="mb-5 text-center text-2xl">Create Workspace</h2>
+
+              <div class="flex items-center gap-2.5 mb-5">
+                <div class="w-24 h-24 rounded-full overflow-hidden border-2 border-gray-300 flex justify-center items-center bg-gray-100">
+                  <div id="avatarPreview" class="text-2xl">+</div>
+                </div>
+                <span class="change-avatar">
+                  <input
+                    type="file"
+                    accept="image/*"
+                    id="avatarInput"
+                    class="hidden"
+                  />
+                  <label 
+                    for="avatarInput" 
+                    class="cursor-pointer bg-purple-700 text-white px-3 py-1.5 rounded text-sm transition-colors hover:bg-purple-800"
+                  >
+                    Change
+                  </label>
+                </span>
+              </div>
+
+              <div class="flex gap-4 mb-4">
+                <input
+                  type="text"
+                  name="firstName"
+                  id="firstName"
+                  placeholder="First Name"
+                  class="p-2.5 mb-3.5 rounded-lg border border-gray-300 w-full"
+                  required
+                />
+                <input
+                  type="text"
+                  name="lastName"
+                  id="lastName"
+                  placeholder="Last Name"
+                  class="p-2.5 mb-3.5 rounded-lg border border-gray-300 w-full"
+                  required
+                />
+              </div>
+
+              <input
+                type="email"
+                name="email"
+                id="email"
+                placeholder="Email Address"
+                class="p-2.5 mb-3.5 rounded-lg border border-gray-300 w-full"
+                required
+              />
+
+              <label for="role" class="mb-1">What best describes what you do?</label>
+              <input
+                type="text"
+                name="role"
+                id="role"
+                placeholder="e.g. Developer"
+                class="p-2.5 mb-3.5 rounded-lg border border-gray-300 w-full"
+                required
+              />
+
+              <input
+                type="password"
+                name="password"
+                id="password"
+                placeholder="Password"
+                class="p-2.5 mb-3.5 rounded-lg border border-gray-300 w-full"
+                required
+              />
+
+              <input
+                type="password"
+                name="confirmPassword"
+                id="confirmPassword"
+                placeholder="Confirm Password"
+                class="p-2.5 mb-3.5 rounded-lg border border-gray-300 w-full"
+                required
+              />
+
+              <button 
+                type="submit" 
+                class="p-3 bg-purple-700 text-white border-none rounded-lg text-base cursor-pointer mt-2.5 transition-colors hover:bg-purple-800 w-full"
+              >
+                Create Workspace
+              </button>
+
+              <p class="mt-5 text-center text-sm">Already have an account?</p>
+              <button
+                type="button"
+                id="showLoginBtn"
+                class="p-3 bg-transparent text-purple-700 border border-purple-700 rounded-lg text-base cursor-pointer mt-2.5 transition-colors hover:bg-purple-50 w-full"
+              >
+                Login
+              </button>
+            </form>
+          </div>
+
+          <div id="login-form" class="hidden">
+            <form id="loginForm" class="flex flex-col">
+              <h2 class="mb-5 text-center text-2xl">Login</h2>
+
+              <input
+                type="email"
+                name="loginEmail"
+                id="loginEmail"
+                placeholder="Email Address"
+                class="p-2.5 mb-3.5 rounded-lg border border-gray-300 w-full"
+                required
+              />
+
+              <input
+                type="password"
+                name="loginPassword"
+                id="loginPassword"
+                placeholder="Password"
+                class="p-2.5 mb-3.5 rounded-lg border border-gray-300 w-full"
+                required
+              />
+
+              <button 
+                type="submit" 
+                class="p-3 bg-purple-700 text-white border-none rounded-lg text-base cursor-pointer mt-2.5 transition-colors hover:bg-purple-800 w-full"
+              >
+                Login
+              </button>
+
+              <p class="mt-5 text-center text-sm">New here?</p>
+              <button
+                type="button"
+                id="showSignupBtn"
+                class="p-3 bg-transparent text-purple-700 border border-purple-700 rounded-lg text-base cursor-pointer mt-2.5 transition-colors hover:bg-purple-50 w-full"
+              >
+                Create Workspace
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const signupForm = document.getElementById('signupForm');
+      const loginForm = document.getElementById('loginForm');
+      const signupSection = document.getElementById('signup-form');
+      const loginSection = document.getElementById('login-form');
+      const showLoginBtn = document.getElementById('showLoginBtn');
+      const showSignupBtn = document.getElementById('showSignupBtn');
+      const avatarInput = document.getElementById('avatarInput');
+      const avatarPreview = document.getElementById('avatarPreview');
+
+      // Toggle between signup and login forms
+      showLoginBtn.addEventListener('click', function() {
+        signupSection.classList.add('hidden');
+        loginSection.classList.remove('hidden');
+      });
+
+      showSignupBtn.addEventListener('click', function() {
+        loginSection.classList.add('hidden');
+        signupSection.classList.remove('hidden');
+      });
+
+      // Handle avatar upload preview
+      avatarInput.addEventListener('change', function(e) {
+        const file = e.target.files[0];
+        if (file) {
+          const reader = new FileReader();
+          reader.onload = function(event) {
+            if (avatarPreview.innerHTML === '+') {
+              avatarPreview.innerHTML = '';
+              const img = document.createElement('img');
+              img.src = event.target.result;
+              img.className = 'w-full h-full object-cover';
+              avatarPreview.appendChild(img);
+            } else {
+              avatarPreview.querySelector('img').src = event.target.result;
+            }
+          };
+          reader.readAsDataURL(file);
+        }
+      });
+
+      // Form submission handlers
+      signupForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const password = document.getElementById('password').value;
+        const confirmPassword = document.getElementById('confirmPassword').value;
+        
+        if (password !== confirmPassword) {
+          alert("Passwords do not match!");
+          return;
+        }
+        
+        const formData = {
+          firstName: document.getElementById('firstName').value,
+          lastName: document.getElementById('lastName').value,
+          email: document.getElementById('email').value,
+          password: password,
+          role: document.getElementById('role').value,
+          avatar: avatarPreview.querySelector('img')?.src || ''
+        };
+        
+        console.log('Signup Data:', formData);
+      });
+
+      loginForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const formData = {
+          email: document.getElementById('loginEmail').value,
+          password: document.getElementById('loginPassword').value
+        };
+        
+        console.log('Login Data:', formData);
+      });
+    });
+  </script>
+</body>
 </html>

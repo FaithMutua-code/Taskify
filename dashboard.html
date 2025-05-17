@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Taskify Dashboard</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/react/umd/react.development.js"></script>
+  <script src="https://unpkg.com/react-dom/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/react-calendar/dist/Calendar.js"></script>
+  <script src="https://unpkg.com/recharts/umd/Recharts.min.js"></script>
+  <style>
+    .react-calendar {
+      width: 100%;
+      border: none;
+      font-family: inherit;
+    }
+    .react-calendar__tile--now {
+      background: #f5e9fc;
+    }
+    .react-calendar__tile--active {
+      background: #6a0dad;
+      color: white;
+      border-radius: 50%;
+    }
+    .react-calendar__tile {
+      padding: 0.75em 0.5em;
+    }
+  </style>
+</head>
+<body class="bg-purple-50 min-h-screen">
+  <div class="grid grid-cols-1 lg:grid-cols-[220px_1fr_300px] gap-5 p-5">
+    <!-- Sidebar -->
+    <aside class="bg-white p-5 rounded-xl shadow-md lg:block hidden">
+      <h1 class="text-2xl font-bold text-purple-800 mb-8">Taskify</h1>
+      <nav class="flex flex-col justify-between h-full">
+        <div class="space-y-10">
+          <a href="#" class="flex items-center gap-3 text-purple-800 font-semibold">
+            <img src="/src/assets/dashboard.png" alt="" class="w-7 h-7"> Dashboard
+          </a>
+          <a href="#" class="flex items-center gap-3 text-purple-800 font-semibold">
+            <img src="/src/assets/track.png" alt="" class="w-7 h-7"> Track
+          </a>
+          <a href="#" class="flex items-center gap-3 text-purple-800 font-semibold">
+            <img src="/src/assets/projects.png" alt="" class="w-7 h-7"> Projects
+          </a>
+          <a href="#" class="flex items-center gap-3 text-purple-800 font-semibold">
+            <img src="/src/assets/reports.png" alt="" class="w-7 h-7"> Reports
+          </a>
+        </div>
+        <div class="mb-20 space-y-10">
+          <a href="#" class="flex items-center gap-3 text-purple-800 font-semibold">
+            <img src="/src/assets/support.png" alt="" class="w-7 h-7"> Support
+          </a>
+          <a href="#" class="flex items-center gap-3 text-purple-800 font-semibold">
+            <img src="/src/assets/settings.png" alt="" class="w-7 h-7"> Settings
+          </a>
+        </div>
+      </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="flex flex-col gap-3">
+      <!-- Header -->
+      <div class="flex justify-between items-center">
+        <div class="pl-5">
+          <p class="text-xl font-semibold">Hi, <span class="text-purple-800">Kim Namjoon</span></p>
+          <h3 class="text-base text-purple-800 font-light">Let's finish your task today</h3>
+        </div>
+        <div class="pr-8">
+          <img src="/src/assets/notification.png" alt="" class="w-8 h-8">
+        </div>
+      </div>
+
+      <!-- Today's Task Card -->
+      <div class="bg-white p-5 rounded-xl shadow-md flex flex-col md:flex-row justify-between items-center gap-5">
+        <div class="flex flex-col items-start gap-5">
+          <h2 class="text-2xl m-0">Today's Task</h2>
+          <p class="m-0 text-gray-600">Check your daily tasks and schedules</p>
+          <button class="bg-purple-800 text-white px-4 py-2 rounded-md cursor-pointer mt-3">Today's Schedule</button>
+        </div>
+        <img src="/src/assets/imag1.jpg" alt="Task" class="w-full md:w-72 h-auto rounded-lg">
+      </div>
+
+      <!-- Task Cards -->
+      <div class="flex flex-col sm:flex-row gap-4">
+        <div class="bg-white p-5 rounded-xl shadow-md flex-1">
+          <h3>Web Dashboard</h3>
+          <div class="w-full h-2 bg-gray-200 rounded-full mt-2 overflow-hidden">
+            <div class="h-full bg-purple-800 rounded-full" style="width: 90%"></div>
+          </div>
+          <p class="text-sm text-gray-700 mt-1">Progress: 90%</p>
+          <p class="text-sm text-gray-500">3 days left</p>
+        </div>
+        <div class="bg-white p-5 rounded-xl shadow-md flex-1">
+          <h3>Mobile App</h3>
+          <div class="w-full h-2 bg-gray-200 rounded-full mt-2 overflow-hidden">
+            <div class="h-full bg-pink-500 rounded-full" style="width: 30%"></div>
+          </div>
+          <p class="text-sm text-gray-700 mt-1">Progress: 30%</p>
+          <p class="text-sm text-gray-500">15 days left</p>
+        </div>
+        <div class="bg-white p-5 rounded-xl shadow-md flex-1">
+          <h3>Animation</h3>
+          <div class="w-full h-2 bg-gray-200 rounded-full mt-2 overflow-hidden">
+            <div class="h-full bg-purple-600 rounded-full" style="width: 75%"></div>
+          </div>
+          <p class="text-sm text-gray-700 mt-1">Progress: 75%</p>
+          <p class="text-sm text-gray-500">7 days left</p>
+        </div>
+      </div>
+
+      <!-- Chart and Assignments Section -->
+      <div class="flex flex-col lg:flex-row gap-5 mt-5">
+        <!-- Chart Card -->
+        <div class="bg-white p-5 rounded-xl shadow-md flex-1">
+          <h3>Tasks Progress</h3>
+          <div id="chart-container" style="width: 100%; height: 300px"></div>
+        </div>
+
+        <!-- Assignments Card -->
+        <div class="bg-white p-5 rounded-xl shadow-md flex-1 lg:max-w-[350px] max-h-[500px] overflow-y-auto">
+          <div class="flex justify-between items-center">
+            <h3>Assignments (12)</h3>
+            <p class="text-sm text-gray-500">2/5 completed</p>
+          </div>
+          <div class="mt-5">
+            <div class="flex justify-between py-3 border-b border-gray-200">
+              <div>
+                <h4 class="text-base font-medium">Colour Theory</h4>
+                <p class="text-sm text-gray-500">Due: 05/10/2024</p>
+              </div>
+              <div class="font-bold text-purple-800">86/100</div>
+            </div>
+            <div class="flex justify-between py-3 border-b border-gray-200">
+              <div>
+                <h4 class="text-base font-medium">Design System</h4>
+                <p class="text-sm text-gray-500">Due: 06/10/2024</p>
+              </div>
+              <div class="font-bold text-purple-800">90/100</div>
+            </div>
+            <div class="flex justify-between py-3 border-b border-gray-200">
+              <div>
+                <h4 class="text-base font-medium">Prototyping</h4>
+                <p class="text-sm text-gray-500">Due: 10/10/2024</p>
+              </div>
+              <div class="font-bold text-purple-800">80/100</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- Right Sidebar -->
+    <aside class="flex flex-col gap-5">
+      <!-- Profile Card -->
+      <div class="bg-purple-200 p-5 rounded-xl">
+        <div class="flex items-center gap-3">
+          <img src="/src/assets/avator.jpg" alt="" class="w-12 h-12 rounded-full">
+          <div>
+            <h3 class="font-semibold m-0">Kim Namjoon</h3>
+            <p class="text-sm font-light m-0">UI/UX Designer</p>
+          </div>
+        </div>
+
+        <div class="bg-white p-5 rounded-xl border border-gray-200 mt-5 shadow-sm">
+          <div class="flex justify-between items-center">
+            <h4 class="text-lg font-medium" id="current-month"></h4>
+            <button id="add-task-btn" class="bg-purple-800 text-white text-xs px-3 py-1 rounded-full cursor-pointer">
+              + Add Task
+            </button>
+          </div>
+
+          <!-- Calendar -->
+          <div class="mt-5" id="calendar-container"></div>
+
+          <!-- Schedule List -->
+          <div class="mt-5">
+            <h4 class="font-medium">Schedule</h4>
+            <div class="mt-3" id="schedule-list">
+              <div class="mb-4 schedule-item">
+                <p class="font-semibold m-0">UI Motion</p>
+                <small class="text-gray-500">10:00am - 12:00pm</small>
+                <div class="flex gap-2 mt-1">
+                  <button class="text-xs text-purple-800 edit-btn">Edit</button>
+                  <button class="text-xs text-red-500 delete-btn">Delete</button>
+                </div>
+              </div>
+              <div class="mb-4 schedule-item">
+                <p class="font-semibold m-0">UI Design</p>
+                <small class="text-gray-500">12:00pm - 02:00pm</small>
+                <div class="flex gap-2 mt-1">
+                  <button class="text-xs text-purple-800 edit-btn">Edit</button>
+                  <button class="text-xs text-red-500 delete-btn">Delete</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Batchmates Card -->
+      <div class="bg-purple-200 p-5 rounded-xl">
+        <h4 class="font-medium">Batchmates</h4>
+        <div class="mt-3 space-y-3">
+          <div class="flex items-center gap-3 bg-white p-3 rounded-full border border-transparent">
+            <img src="/src/assets/avator.jpg" alt="" class="w-10 h-10 rounded-full">
+            <div>
+              <p class="font-semibold m-0">Rinsen Jey</p>
+              <small class="text-gray-500">UX Designer</small>
+            </div>
+          </div>
+          <div class="flex items-center gap-3 bg-white p-3 rounded-full border border-transparent">
+            <img src="/src/assets/avator.jpg" alt="" class="w-10 h-10 rounded-full">
+            <div>
+              <p class="font-semibold m-0">Kim Jee yong</p>
+              <small class="text-gray-500">UI Designer</small>
+            </div>
+          </div>
+          <div class="flex items-center gap-3 bg-white p-3 rounded-full border border-transparent">
+            <img src="/src/assets/avator.jpg" alt="" class="w-10 h-10 rounded-full">
+            <div>
+              <p class="font-semibold m-0">Kim Beo yong</p>
+              <small class="text-gray-500">UX/UI Designer</small>
+            </div>
+          </div>
+        </div>
+      </div>
+    </aside>
+  </div>
+
+  <!-- Task Form Modal -->
+  <div id="task-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden">
+    <div class="bg-white p-5 rounded-lg w-full max-w-md">
+      <h3 class="text-xl font-semibold mb-4" id="modal-title">Add New Task</h3>
+      <div class="space-y-3">
+        <input type="text" id="task-name" placeholder="Task name" class="w-full p-2 border rounded">
+        <input type="text" id="task-time" placeholder="Time range (e.g. 2:00pm - 4:00pm)" class="w-full p-2 border rounded">
+        <div class="flex justify-end gap-2">
+          <button id="cancel-task" class="px-4 py-2 border rounded">Cancel</button>
+          <button id="save-task" class="px-4 py-2 bg-purple-800 text-white rounded">Save</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Initialize the calendar
+    document.addEventListener('DOMContentLoaded', function() {
+      // Set current month
+      const months = ['January', 'February', 'March', 'April', 'May', 'June', 
+                     'July', 'August', 'September', 'October', 'November', 'December'];
+      const currentDate = new Date();
+      document.getElementById('current-month').textContent = months[currentDate.getMonth()];
+      
+      // Initialize React Calendar
+      const Calendar = ReactCalendar.default;
+      const calendar = ReactDOM.render(
+        React.createElement(Calendar, {
+          onChange: (date) => console.log(date),
+          value: currentDate,
+          view: 'month'
+        }),
+        document.getElementById('calendar-container')
+      );
+
+      // Initialize Recharts BarChart
+      const { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip } = Recharts;
+      
+      const data = [
+        { day: "Mon", timeSpent: 4 },
+        { day: "Tue", timeSpent: 6 },
+        { day: "Wed", timeSpent: 7 },
+        { day: "Thur", timeSpent: 8 },
+        { day: "Fri", timeSpent: 5 },
+        { day: "Sat", timeSpent: 4 },
+        { day: "Sun", timeSpent: 6 },
+      ];
+
+      const chart = ReactDOM.render(
+        React.createElement(
+          BarChart,
+          {
+            width: document.getElementById('chart-container').clientWidth,
+            height: 300,
+            data: data,
+            margin: { top: 5, right: 30, left: 20, bottom: 5 }
+          },
+          [
+            React.createElement(CartesianGrid, { strokeDasharray: "3 3" }),
+            React.createElement(XAxis, { dataKey: "day" }),
+            React.createElement(YAxis),
+            React.createElement(Tooltip),
+            React.createElement(Bar, { 
+              dataKey: "timeSpent", 
+              fill: "#6a0dad", 
+              radius: [8, 8, 0, 0] 
+            })
+          ]
+        ),
+        document.getElementById('chart-container')
+      );
+
+      // Task management functionality
+      const taskModal = document.getElementById('task-modal');
+      const addTaskBtn = document.getElementById('add-task-btn');
+      const cancelTaskBtn = document.getElementById('cancel-task');
+      const saveTaskBtn = document.getElementById('save-task');
+      const scheduleList = document.getElementById('schedule-list');
+      let currentEditIndex = null;
+
+      // Show modal
+      addTaskBtn.addEventListener('click', () => {
+        document.getElementById('modal-title').textContent = 'Add New Task';
+        document.getElementById('task-name').value = '';
+        document.getElementById('task-time').value = '';
+        currentEditIndex = null;
+        taskModal.classList.remove('hidden');
+      });
+
+      // Edit task
+      document.querySelectorAll('.edit-btn').forEach((btn, index) => {
+        btn.addEventListener('click', () => {
+          const item = document.querySelectorAll('.schedule-item')[index];
+          document.getElementById('modal-title').textContent = 'Edit Task';
+          document.getElementById('task-name').value = item.querySelector('p').textContent;
+          document.getElementById('task-time').value = item.querySelector('small').textContent;
+          currentEditIndex = index;
+          taskModal.classList.remove('hidden');
+        });
+      });
+
+      // Delete task
+      document.querySelectorAll('.delete-btn').forEach((btn, index) => {
+        btn.addEventListener('click', () => {
+          document.querySelectorAll('.schedule-item')[index].remove();
+        });
+      });
+
+      // Cancel modal
+      cancelTaskBtn.addEventListener('click', () => {
+        taskModal.classList.add('hidden');
+      });
+
+      // Save task
+      saveTaskBtn.addEventListener('click', () => {
+        const taskName = document.getElementById('task-name').value;
+        const taskTime = document.getElementById('task-time').value;
+        
+        if (taskName && taskTime) {
+          if (currentEditIndex !== null) {
+            // Edit existing task
+            const item = document.querySelectorAll('.schedule-item')[currentEditIndex];
+            item.querySelector('p').textContent = taskName;
+            item.querySelector('small').textContent = taskTime;
+          } else {
+            // Add new task
+            const newItem = document.createElement('div');
+            newItem.className = 'mb-4 schedule-item';
+            newItem.innerHTML = `
+              <p class="font-semibold m-0">${taskName}</p>
+              <small class="text-gray-500">${taskTime}</small>
+              <div class="flex gap-2 mt-1">
+                <button class="text-xs text-purple-800 edit-btn">Edit</button>
+                <button class="text-xs text-red-500 delete-btn">Delete</button>
+              </div>
+            `;
+            scheduleList.appendChild(newItem);
+            
+            // Add event listeners to new buttons
+            newItem.querySelector('.edit-btn').addEventListener('click', () => {
+              document.getElementById('modal-title').textContent = 'Edit Task';
+              document.getElementById('task-name').value = taskName;
+              document.getElementById('task-time').value = taskTime;
+              currentEditIndex = Array.from(document.querySelectorAll('.schedule-item')).indexOf(newItem);
+              taskModal.classList.remove('hidden');
+            });
+            
+            newItem.querySelector('.delete-btn').addEventListener('click', () => {
+              newItem.remove();
+            });
+          }
+          
+          taskModal.classList.add('hidden');
+        }
+      });
+
+      // Make chart responsive
+      window.addEventListener('resize', () => {
+        const chartContainer = document.getElementById('chart-container');
+        if (chartContainer) {
+          ReactDOM.render(
+            React.createElement(
+              BarChart,
+              {
+                width: chartContainer.clientWidth,
+                height: 300,
+                data: data,
+                margin: { top: 5, right: 30, left: 20, bottom: 5 }
+              },
+              [
+                React.createElement(CartesianGrid, { strokeDasharray: "3 3" }),
+                React.createElement(XAxis, { dataKey: "day" }),
+                React.createElement(YAxis),
+                React.createElement(Tooltip),
+                React.createElement(Bar, { 
+                  dataKey: "timeSpent", 
+                  fill: "#6a0dad", 
+                  radius: [8, 8, 0, 0] 
+                })
+              ]
+            ),
+            chartContainer
+          );
+        }
+      });
+    });
+  </script>
+</body>
+</html>
