@@ -26,11 +26,80 @@
     .react-calendar__tile {
       padding: 0.75em 0.5em;
     }
+    .mobile-menu {
+      transition: all 0.3s ease;
+    }
+    .mobile-menu-hidden {
+      transform: translateX(-100%);
+    }
+    .mobile-menu-visible {
+      transform: translateX(0);
+    }
+    .overlay {
+      transition: opacity 0.3s ease;
+    }
+    .overlay-hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+    .overlay-visible {
+      opacity: 1;
+      pointer-events: auto;
+    }
   </style>
 </head>
 <body class="bg-purple-50 min-h-screen">
-  <div class="grid grid-cols-1 lg:grid-cols-[220px_1fr_300px] gap-5 p-5">
-    <!-- Sidebar -->
+  <!-- Mobile Menu Button (Hamburger) -->
+  <div class="lg:hidden fixed top-5 left-5 z-50">
+    <button id="mobile-menu-button" class="p-2 rounded-md bg-purple-800 text-white">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+      </svg>
+    </button>
+  </div>
+
+  <!-- Mobile Menu Overlay -->
+  <div id="mobile-menu-overlay" class="overlay overlay-hidden fixed inset-0 bg-black bg-opacity-50 z-40"></div>
+
+  <!-- Mobile Menu -->
+  <div id="mobile-menu" class="mobile-menu mobile-menu-hidden fixed inset-y-0 left-0 w-64 bg-white p-5 shadow-xl z-50">
+    <div class="flex justify-between items-center mb-8">
+      <h1 class="text-2xl font-bold text-purple-800">Taskify</h1>
+      <button id="close-mobile-menu" class="p-1 rounded-md hover:bg-gray-100">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+    </div>
+    
+    <nav class="flex flex-col justify-between h-[calc(100%-60px)]">
+      <div class="space-y-6">
+        <a href="#" class="flex items-center gap-3 text-purple-800 font-semibold hover:bg-purple-50 p-2 rounded-md">
+          <img src="./assets/dashboard.png" alt="" class="w-7 h-7"> Dashboard
+        </a>
+        <a href="#" class="flex items-center gap-3 text-purple-800 font-semibold hover:bg-purple-50 p-2 rounded-md">
+          <img src="./assets/track.png" alt="" class="w-7 h-7"> Track
+        </a>
+        <a href="#" class="flex items-center gap-3 text-purple-800 font-semibold hover:bg-purple-50 p-2 rounded-md">
+          <img src="./assets/projects.png" alt="" class="w-7 h-7"> Projects
+        </a>
+        <a href="#" class="flex items-center gap-3 text-purple-800 font-semibold hover:bg-purple-50 p-2 rounded-md">
+          <img src="./assets/reports.png" alt="" class="w-7 h-7"> Reports
+        </a>
+      </div>
+      <div class="space-y-6">
+        <a href="#" class="flex items-center gap-3 text-purple-800 font-semibold hover:bg-purple-50 p-2 rounded-md">
+          <img src="./assets/support.png" alt="" class="w-7 h-7"> Support
+        </a>
+        <a href="#" class="flex items-center gap-3 text-purple-800 font-semibold hover:bg-purple-50 p-2 rounded-md">
+          <img src="./assets/settings.png" alt="" class="w-7 h-7"> Settings
+        </a>
+      </div>
+    </nav>
+  </div>
+
+  <div class="grid grid-cols-1 lg:grid-cols-[220px_1fr_300px] gap-5 p-5 pt-16 lg:pt-5">
+    <!-- Sidebar (Desktop) -->
     <aside class="bg-white p-5 rounded-xl shadow-md lg:block hidden">
       <h1 class="text-2xl font-bold text-purple-800 mb-8">Taskify</h1>
       <nav class="flex flex-col justify-between h-full">
@@ -230,7 +299,7 @@
   </div>
 
   <!-- Task Form Modal -->
-  <div id="task-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden">
+  <div id="task-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden z-50">
     <div class="bg-white p-5 rounded-lg w-full max-w-md">
       <h3 class="text-xl font-semibold mb-4" id="modal-title">Add New Task</h3>
       <div class="space-y-3">
@@ -247,6 +316,34 @@
   <script>
     // Initialize the calendar
     document.addEventListener('DOMContentLoaded', function() {
+      // Mobile menu functionality
+      const mobileMenuButton = document.getElementById('mobile-menu-button');
+      const closeMobileMenuButton = document.getElementById('close-mobile-menu');
+      const mobileMenu = document.getElementById('mobile-menu');
+      const mobileMenuOverlay = document.getElementById('mobile-menu-overlay');
+
+      mobileMenuButton.addEventListener('click', () => {
+        mobileMenu.classList.remove('mobile-menu-hidden');
+        mobileMenu.classList.add('mobile-menu-visible');
+        mobileMenuOverlay.classList.remove('overlay-hidden');
+        mobileMenuOverlay.classList.add('overlay-visible');
+      });
+
+      closeMobileMenuButton.addEventListener('click', () => {
+        hideMobileMenu();
+      });
+
+      mobileMenuOverlay.addEventListener('click', () => {
+        hideMobileMenu();
+      });
+
+      function hideMobileMenu() {
+        mobileMenu.classList.remove('mobile-menu-visible');
+        mobileMenu.classList.add('mobile-menu-hidden');
+        mobileMenuOverlay.classList.remove('overlay-visible');
+        mobileMenuOverlay.classList.add('overlay-hidden');
+      }
+
       // Set current month
       const months = ['January', 'February', 'March', 'April', 'May', 'June', 
                      'July', 'August', 'September', 'October', 'November', 'December'];
