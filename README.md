@@ -93,3 +93,13 @@ Taskify is a task management web application designed to help users organize, tr
 - **Asset Dependencies**: The project references images in the `assets` folder that are not provided. Missing images may cause broken visuals.
 - **Backend Absence**: Form submissions currently log to the console and do not persist data.
 - **Limited Interactivity**: Some navigation links (e.g., Dashboard, Track) are placeholders and do not lead to functional pages.
+
+## Contributing
+Contributions are welcome! To contribute:
+1. Fork the repository.
+2. Create a new branch (`git checkout -b feature/your-feature`).
+3. Make your changes and commit (`git commit -m "Add your feature"`).
+4. Push to the branch (`git push origin feature/your-feature`).
+5. Create a pull request.
+
+Please ensure your code follows the project's coding style and includes appropriate comments.
