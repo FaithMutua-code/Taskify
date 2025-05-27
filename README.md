@@ -88,3 +88,8 @@ Taskify is a task management web application designed to help users organize, tr
 - **Enhanced Interactivity**: Add drag-and-drop for tasks, real-time updates, and notifications.
 - **Improved Validation**: Implement robust form validation and error handling.
 - **Additional Features**: Task categories, priority levels, and collaboration tools for batchmates.
+
+## Known Issues
+- **Asset Dependencies**: The project references images in the `assets` folder that are not provided. Missing images may cause broken visuals.
+- **Backend Absence**: Form submissions currently log to the console and do not persist data.
+- **Limited Interactivity**: Some navigation links (e.g., Dashboard, Track) are placeholders and do not lead to functional pages.
