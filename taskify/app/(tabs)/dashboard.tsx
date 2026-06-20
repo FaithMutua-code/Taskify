@@ -1,5 +1,5 @@
 // app/(tabs)/dashboard.tsx
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import {
   View,
   Text,
@@ -7,6 +7,8 @@ import {
   ScrollView,
   Image,
   TouchableOpacity,
+  Animated,
+  Pressable,
 } from 'react-native';
 import { useRouter } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
@@ -31,11 +33,84 @@ import {
 } from '../../constants/mockData';
 import { ScheduleEntry } from '../../constants/types';
 
+// Wraps each TaskProgressCard with:
+// 1. A staggered fade + slide-up entrance when the dashboard mounts
+// 2. A subtle scale-down "press" animation for tactile feedback on tap
+function AnimatedProjectCard({
+  index,
+  children,
+}: {
+  index: number;
+  children: React.ReactNode;
+}) {
+  const opacity = useRef(new Animated.Value(0)).current;
+  const translateY = useRef(new Animated.Value(16)).current;
+  const scale = useRef(new Animated.Value(1)).current;
+
+  useEffect(() => {
+    Animated.parallel([
+      Animated.timing(opacity, {
+        toValue: 1,
+        duration: 350,
+        delay: index * 90, // stagger each card's entrance
+        useNativeDriver: true,
+      }),
+      Animated.spring(translateY, {
+        toValue: 0,
+        delay: index * 90,
+        friction: 7,
+        tension: 60,
+        useNativeDriver: true,
+      }),
+    ]).start();
+  }, []);
+
+  const handlePressIn = () => {
+    Animated.spring(scale, {
+      toValue: 0.95,
+      friction: 6,
+      tension: 100,
+      useNativeDriver: true,
+    }).start();
+  };
+
+  const handlePressOut = () => {
+    Animated.spring(scale, {
+      toValue: 1,
+      friction: 5,
+      tension: 80,
+      useNativeDriver: true,
+    }).start();
+  };
+
+  return (
+    <Pressable onPressIn={handlePressIn} onPressOut={handlePressOut}>
+      <Animated.View
+        style={{
+          opacity,
+          transform: [{ translateY }, { scale }],
+        }}
+      >
+        {children}
+      </Animated.View>
+    </Pressable>
+  );
+}
+
 export default function DashboardScreen() {
   const router = useRouter();
   const [schedule, setSchedule] = useState<ScheduleEntry[]>(initialSchedule);
   const [modalVisible, setModalVisible] = useState<boolean>(false);
   const [editingItem, setEditingItem] = useState<ScheduleEntry | null>(null);
+  const headerOpacity = useRef(new Animated.Value(0)).current;
+
+  useEffect(() => {
+    Animated.timing(headerOpacity, {
+      toValue: 1,
+      duration: 400,
+      useNativeDriver: true,
+    }).start();
+  }, []);
 
   const monthName = new Date().toLocaleString('default', { month: 'long' });
 
@@ -107,21 +182,32 @@ export default function DashboardScreen() {
         </Card>
 
         {/* Project Progress Cards - horizontal scroll */}
+        <Animated.View
+          style={[styles.cardsSectionHeader, { opacity: headerOpacity }]}
+        >
+          <Text style={styles.sectionTitle}>Your Projects</Text>
+          <Text style={styles.cardsCount}>{projectCards.length} active</Text>
+        </Animated.View>
         <ScrollView
           horizontal
           showsHorizontalScrollIndicator={false}
           style={styles.cardsScroll}
           contentContainerStyle={styles.cardsRow}
+          decelerationRate="fast"
+          snapToInterval={166} // cardItem width (150) + gap (spacing.sm = 16)
+          snapToAlignment="start"
         >
-          {projectCards.map((p) => (
-            <View key={p.id} style={styles.cardItem}>
-              <TaskProgressCard
-                title={p.title}
-                progress={p.progress}
-                color={p.color}
-                daysLeft={p.daysLeft}
-              />
-            </View>
+          {projectCards.map((p, index) => (
+            <AnimatedProjectCard key={p.id} index={index}>
+              <View style={[styles.cardItem, shadow.soft]}>
+                <TaskProgressCard
+                  title={p.title}
+                  progress={p.progress}
+                  color={p.color}
+                  daysLeft={p.daysLeft}
+                />
+              </View>
+            </AnimatedProjectCard>
           ))}
         </ScrollView>
 
@@ -243,20 +329,40 @@ const styles = StyleSheet.create({
   heroSubtitle: { fontSize: 13, color: colors.textMuted, marginTop: spacing.xs },
   heroImage: { width: 100, height: 90, borderRadius: radius.md },
 
+  cardsSectionHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginTop: spacing.lg,
+  },
+  cardsCount: {
+    fontSize: 12,
+    fontWeight: '500',
+    color: colors.primary,
+    backgroundColor: colors.surfaceLight,
+    paddingHorizontal: spacing.sm,
+    paddingVertical: 4,
+    borderRadius: radius.full,
+    overflow: 'hidden',
+  },
+
   // Horizontal scroll wrapper for project cards.
   // Negative horizontal margin + matching padding lets cards
   // bleed to the screen edge while content stays aligned with
   // the rest of the page (which has spacing.lg padding).
   cardsScroll: {
-    marginTop: spacing.lg,
+    marginTop: spacing.sm,
     marginHorizontal: -spacing.lg,
   },
   cardsRow: {
     paddingHorizontal: spacing.lg,
+    paddingVertical: spacing.xs,
     gap: spacing.sm,
   },
   cardItem: {
     width: 150, // fixed width so each card is fully visible and swipeable
+    borderRadius: radius.lg,
+    backgroundColor: colors.white,
   },
 
   sectionTitle: { fontSize: 16, fontWeight: '600', color: colors.text },
